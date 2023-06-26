@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -25,4 +26,12 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
              'error'         => $error,
           ]);
       }
+
+      #[Route('/logout', name: 'app_log_out', methods: ['GET'])]
+      public function someAction(Security $security): Response
+    {
+        $security->logout(false);
+
+        return $this->redirectToRoute('app_login');
+    }
   }
