@@ -16,9 +16,12 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 #[Route('/user')]
 class UserController extends AbstractController
 {
+    // route which will be used to display all users
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
     public function index(Connection $connection, TokenStorageInterface $tokenStorage): Response
     {
+
+        // Check if user is logged in, if not redirect to login page
         if($tokenStorage->getToken() != null){
             $user = $tokenStorage->getToken()->getUser();
         }
@@ -29,6 +32,7 @@ class UserController extends AbstractController
 
         $userRoles = $user->getRoles();
 
+        // Check if user is admin, if not redirect to not allowed page
         if(in_array('ROLE_ADMIN', $userRoles))
         {
             $sql = "SELECT `user_id`,`email`,`roles` FROM `user`";
@@ -46,6 +50,7 @@ class UserController extends AbstractController
         }
     }
 
+    // route which allows to edit a user informations if the user is admin
     #[Route('/edit/{id}', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, UserRepository $userRepository, TokenStorageInterface $tokenStorage): Response
     {

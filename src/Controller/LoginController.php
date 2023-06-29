@@ -10,10 +10,12 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
   class LoginController extends AbstractController
   {
-      #[Route('/login', name: 'app_login')]
 
+      // route which will be used to display the login page
+      #[Route('/login', name: 'app_login')]
      public function index(AuthenticationUtils $authenticationUtils): Response
       {
+
          // get the login error if there is one
          $error = $authenticationUtils->getLastAuthenticationError();
 
@@ -27,11 +29,13 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
           ]);
       }
 
+      // route which will be used to logout
       #[Route('/logout', name: 'app_log_out', methods: ['GET'])]
       public function someAction(Security $security): Response
     {
         $security->logout(false);
 
+        // redirect to the login page
         return $this->redirectToRoute('app_login');
     }
   }
