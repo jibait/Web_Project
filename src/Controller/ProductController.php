@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Doctrine\DBAL\Connection;
+use PHPUnit\Util\Json;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/product')]
 class ProductController extends AbstractController
@@ -102,5 +104,16 @@ class ProductController extends AbstractController
         }
 
         return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/addToCart', name: 'app_product_cart', methods: ['POST'])]
+    public function addCart(Request $request, ProductRepository $productRepository): JsonResponse
+    {
+        $jsonData = json_decode($request->getContent());
+        $productId = $jsonData->productId;
+        $product = $productRepository->find($productId);
+        $product->addUser($this->getUser());
+        $productRepository->save($product, true);
+        return new JsonResponse(['status' => 'Product added to cart!'], Response::HTTP_CREATED);
     }
 }

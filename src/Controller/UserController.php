@@ -22,10 +22,13 @@ class UserController extends AbstractController
         if($tokenStorage->getToken() != null){
             $user = $tokenStorage->getToken()->getUser();
         }
+
         else{
             return $this->redirectToRoute('app_login');
         }
+
         $userRoles = $user->getRoles();
+
         if(in_array('ROLE_ADMIN', $userRoles))
         {
             $sql = "SELECT `user_id`,`email`,`roles` FROM `user`";
@@ -36,6 +39,7 @@ class UserController extends AbstractController
                 'users' => $result
             ]);
         }
+
         else
         {
             return $this->redirectToRoute('app_not_allowed');
@@ -48,10 +52,13 @@ class UserController extends AbstractController
         if($tokenStorage->getToken()->getUser() != null){
             $user = $tokenStorage->getToken()->getUser();
         }
+
         else{
             return $this->redirectToRoute('app_login');
         }
+
         $userRoles = $user->getRoles();
+
         if(in_array('ROLE_ADMIN', $userRoles))
         {
             $form = $this->createForm(UserType::class, $user);
@@ -68,6 +75,7 @@ class UserController extends AbstractController
                 'form' => $form,
             ]);
         }
+        
         else
         {
             return $this->redirectToRoute('app_not_allowed');
