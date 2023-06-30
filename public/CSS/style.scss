@@ -1,8 +1,277 @@
-$first-color: #2c2d34;
-$second-color: #e94822;
-$third-color: #f2910a;
-$fourth-color: #efd510;
+/* Styles généraux */
+header {
+    background-color: mediumorchid;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
 
-$first-font: 'Roboto', sans-serif;
-$second-font: 'Open Sans', sans-serif;
+.oval:hover {
+  background-color: rgba(128, 128, 128, 0.5);
+  color: white;
+}
 
+body {
+  height: 170vh; /* Définissez la hauteur de la page à 100% de la hauteur de la fenêtre */
+  overflow-y: scroll; /* Active le défilement vertical */
+}
+
+.banner-container {
+    display: flex;
+    align-items: center;
+}
+
+.banniere-image {
+    width: 250px; /* Ajustez la largeur selon vos besoins */
+    margin-right: 70px; /* Espace entre l'image et les mots */
+}
+.banner-search {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+
+
+.search-input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 200px;
+}
+
+.search-button {
+  background-color: #5DBB63;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  margin-left: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.search-button:hover {
+  background-color:  #5DBB63;
+}
+.banner-text {
+    display: flex;
+    align-items: center;
+}
+
+.banner-text h1 {
+    margin-right: 50px; /* Espace entre les mots */
+    font-size: 18px; /* Taille des mots, ajustez selon vos besoins */
+}
+.banner-text h1:hover {
+  border-bottom: 2px solid white; /* Add a small underline when hovering */
+}
+.banner-text h1:last-of-type 
+ {
+  margin-right: 10px
+ }
+.search-image {
+  width: 30px; /* Ajustez la taille de l'image selon vos besoins */
+}
+
+.banner-container-login 
+{
+  color: gray;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+        
+.banner-text-login 
+{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+        
+.banner-text-login h1 {
+  margin-right: 50px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.banner-text-login h1:hover {
+  border-bottom: 2px solid gray; /* Add a small underline when hovering */
+}
+
+.banner-text-login h1:last-of-type  {
+  margin-right: 150px; /* Espace plus grand entre le dernier mot et l'oval */
+}
+
+.banner-text-login .oval {
+  display: flex;
+  color:  gray;
+  font-weight:bold;
+  padding: 5px 10px;
+  border-radius: 20px; /* Ajustez le rayon du border-radius pour obtenir la forme ovale souhaitée */
+  margin-right: 10px; /* Espace entre les ovals */
+  border: 2px solid gray; /* Couleur de la bordure */
+  text-decoration: none;
+}
+
+  
+  main {
+    display: flex;
+  }
+  
+  .container {
+    display:flex;
+    margin-top: 20px; 
+    margin-left: 20px;/* Add margin to create spacing between the filter and products */
+    /* width: 200px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    float: left; */
+  }
+  
+  filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-left: 0; /* Remove the gray color on the left side */
+ 
+  }
+  
+  .filter-item {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    background-color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .filter-item:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .filter-square {
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    margin-right: 10px;
+    border-radius: 2px;
+    border: 2px solid gray;
+    border-width: 2px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .filter-square:hover {
+    background-color: plum;
+  }
+  
+
+  .filter-name {
+    font-size: 14px;
+  }
+  .products {
+    margin-left: 100px;
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap; /* Enable wrapping */
+    justify-content: flex-start; /* Align items at the beginning of the line */
+  }
+  
+  .product {
+    width: calc(33.33% - 20px); /* Adjust the width of each product item */
+    margin-bottom: 20px;
+    box-sizing: border-box; /* Include padding and borders in the width calculation */
+    
+  }
+  
+  
+  .product img {
+    /* width: 30%; */
+    max-height: 150px;
+    object-fit: cover;
+  }
+  .product img:hover {
+    transform: scale(1.1); /* Increase the scale of the image */
+    transition: transform 0.3s ease; /* Add a smooth transition effect */
+  }
+
+  .product-name {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .product-price {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .add-to-cart {
+    background-color:  #5DBB63;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-to-cart:hover {
+    background-color:#03C04A ;
+  }
+  
+  footer {
+    background-color: #f0f0f0;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #777;
+  }
+  .product-description {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 10px;
+  }
+
+  .size-150{
+    max-width: 150px;
+    max-height: 150px;
+  }
+
+  .h-150{
+    height: 150px;
+  }
+
+  .d-flex{
+    display: flex;
+  }
+
+  .flex-center{
+    justify-content: center;
+    align-items: center;
+  }
+
+  .flex-col{
+    flex-direction: column;
+  }
+  
+  .rate{
+    width: 150px;
+    height: 30px;
+  }
+
+  .mt-2{
+    margin-top: .75em;
+  }

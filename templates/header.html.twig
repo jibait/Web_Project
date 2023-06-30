@@ -1,7 +1,22 @@
+{% extends 'base.html.twig' %}
+
 {% block headerapp %}
 
-<div class="container">
+<header>
     
-</div>
+    <div class="banner-container">
+        <img src="logo.png" alt="Image" class="banniere-image">
+        <div class="banner-search">
+          <input type="text" class="search-input" placeholder="Search">
+          <button class="search-button">Search</button>
+        </div>
+        <div class="banner-text">
+          <h1>Home</h1>
+          <h1>Contact Us</h1>
+          <h1>My cart </h1>
+        </div>
+        <img src="{{asset('Medias/panier.png')}}" alt="Image" class="search-image">
+    </div>
+</header>
 
 {% endblock %}

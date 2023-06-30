@@ -1,45 +1,93 @@
-{% extends 'base.html.twig' %}
+{% extends 'header.html.twig' %}
 
 {% block title %}Product index{% endblock %}
 
+
+
 {% block body %}
-    <h1>Product index</h1>
+{{ block('headerapp') }}
+    <div class="banner-container-login">
+        <div class="banner-text-login">
+            <h1>IT</h1>
+            <h1>Plushies</h1>
+            <h1>School Supplies</h1>
+            <h1>decoration & furnitures</h1>
+            <h1>Books</h1>
+            <h1>cosplay</h1>
+            <h1>glasses</h1>
+            <h1>more</h1>
+            <a class="oval" href="{{ path('app_login') }}">Sign in</a>
+            <a class="oval" href="{{ path('app_register') }}">Sign up</a>
+        </div>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Product_title</th>
-                <th>Product_description</th>
-                <th>Price</th>
-                <th>Product_img</th>
-                <th>Product_rate</th>
-                <th>Product_tag</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <main>
+        <div class="container">
+        
+        <div class="filter">
+            <div class="filter-item">
+            <div class="filter-square"></div>
+            <span class="filter-name">Nouveau</span>
+            </div>
+
+            <div class="filter-item">
+            <div class="filter-square"></div>
+            <span class="filter-name">Promotion</span>
+            </div>
+
+            <div class="filter-item">
+            <div class="filter-square"></div>
+            <span class="filter-name">Populaire</span>
+            </div>
+
+            <div class="filter-item">
+            <div class="filter-square"></div>
+            <span class="filter-name">Plushies</span>
+            </div>
+            <div class="filter-item">
+            <div class="filter-square"></div>
+            <span class="filter-name">IT</span>
+            </div>
+            <div class="filter-item">
+            <div class="filter-square"></div>
+            <span class="filter-name">School supplies</span>
+            </div>
+            <div class="filter-item">
+            <div class="filter-square"></div>
+            <span class="filter-name">Books</span>
+            </div>
+            <div class="filter-item" >
+            <div class="filter-square"></div>
+            <span class="filter-name">Cosplay</span>
+            </div>
+            <div class="filter-item">
+            <div class="filter-square"></div>
+            <span class="filter-name">furnitures & decorations</span>
+            </div>
+            <div class="filter-item">
+            <div class="filter-square"></div>
+            <span class="filter-name">glasses</span>
+            </div>
+            <!-- Ajoutez d'autres éléments de filtre ici -->
+        </div>
+    </div>
+
+    <section class="products">
         {% for product in products %}
-            <tr>
-                <td>{{ product.id }}</td>
-                <td>{{ product.productTitle }}</td>
-                <td>{{ product.productDescription }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.productImg }}</td>
-                <td>{{ product.productRate }}</td>
-                <td>{{ product.productTag }}</td>
-                <td>
-                    <a href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
+        <div class="product">
+            <div class="h-150 d-flex flex-center">
+                <img class="size-150" src="{{ asset(product.productImg) }}" alt="{{product.productTitle}}">
+            </div>
+            <div class="d-flex flex-center flex-col">
+                <h3 class="product-name">{{ product.productTitle }}</h3>
+                <p class="product-description">{{ product.productDescription }}</p>
+                <p class="product-price">{{ product.price }} euros</p>
+                <img class="rate" src="{{ asset(product.productRate) }}" alt="Product rate">
+                <button id="{{ product.id }}" class="add-to-cart mt-2">Add to cart</button>
+            </div>
+        </div>
         {% endfor %}
-        </tbody>
-    </table>
+    </section>
+</main>
 
-    <a href="{{ path('app_product_new') }}">Create new</a>
 {% endblock %}
