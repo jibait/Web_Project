@@ -48,26 +48,54 @@ class ProductController extends AbstractController
 
             // finding all products in the cart of the user in the database
             $result = $connection->executeQuery($sql, $parameters)->fetchAllAssociative();
+            $totalPrice = 0;
+            foreach($result as $key => $value){
+                $totalPrice = $totalPrice + $value['price'] * $value['quantity'];
+            }
             return $this->render('product/cart.html.twig', [
-                'products' => $result
+                'products' => $result,
+                'totalPrice' => $totalPrice,
             ]);
         } 
     }
 
     // route which will be used to add a product to the cart by ajax
     #[Route('/addToCart', name: 'app_product_add_cart', methods: ['POST'])]
-    public function addCart(Request $request, ProductUserRepository $productUserRepository, ProductRepository $productRepository): JsonResponse
+    public function addCart(Request $request, ProductUserRepository $productUserRepository, ProductRepository $productRepository, Connection $connection): JsonResponse
     {
         $jsonData = json_decode($request->getContent());
         $productId = $jsonData->productId;
         $product = $productRepository->find($productId);
         $productUser = new ProductUser();
-
+        $userId = $this->getUser()->getId();
+        $sql = "SELECT * FROM product_user WHERE user_id = :userId AND product_id = :productId";
+        $parameters = [
+            'userId' => $userId,
+            'productId' => $productId
+        ];
+        $result = $connection->executeQuery($sql, $parameters)->fetchAllAssociative();
         // find the current user logged in
-        $productUser->setUser($this->getUser());
-        $productUser->setProduct($product);
-        $productUserRepository->save($productUser, true);
-        return new JsonResponse(['status' => 'Product added to cart!'], Response::HTTP_CREATED);
+        if($result != null){
+            $productExisting = $result[0]; // Prendre le premier élément du tableau
+            $quantity = $productExisting['quantity'] + 1;
+            $sqlUpdate = "UPDATE product_user SET quantity = :quantity WHERE user_id = :userId AND product_id = :productId";
+            $parametersUpdate = [
+                'quantity' => $quantity,
+                'userId' => $userId,
+                'productId' => $productId
+            ];
+            $connection->executeQuery($sqlUpdate, $parametersUpdate);
+        }
+        else{
+            $sqlInsert = "INSERT INTO product_user (quantity, user_id, product_id) VALUES (:quantity, :userId, :productId)";
+            $parametersInsert = [
+                'quantity' => 1,
+                'userId' => $userId,
+                'productId' => $productId
+            ];
+            $connection->executeQuery($sqlInsert, $parametersInsert);
+            return new JsonResponse(['status' => 'Product added to cart!'], Response::HTTP_CREATED);
+        }
     }
 
    // route which will be used to add a product to the cart by ajax

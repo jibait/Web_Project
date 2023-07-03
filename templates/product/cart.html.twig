@@ -4,47 +4,30 @@
 {{ block('headerapp') }}
 
 <div class="cart-container">
-    <div class="cart-title">
-        <h1>Mon panier</h1>
-    </div>
-    <div class="cart-content">
-        <div class="cart-content-left">
-            <div class="cart-content-left-title">
-                <h2>Produits</h2>
-            </div>
-            <div class="cart-content-left-products">
-                {% for product in products %}
-                <div class="cart-content-left-product">
-                    <div class="cart-content-left-product-image">
-                        <img src="{{ asset(product.productImg) }}" alt="">
+    <h1>My cart</h1>
+    <div class="user-products">
+        <div class="flex-col w-100 br-right">
+            {% for product in products %}
+                <div class="cart-content-left">
+                
+                    <div class="cart-content-left-items cart-img-containter">
+                        <img class="size-150 object-fit-contain" src="{{ asset(product.product_img) }}" alt="">
                     </div>
-                    <div class="cart-content-left-product-infos">
-                        <div class="cart-content-left-product-infos-title">
-                            <h3>{{ product.productTitle }}</h3>
-                        </div>
-                        <div class="cart-content-left-product-infos-price">
-                            <p>{{ product.price }} €</p>
-                        </div>
-                        <div class="cart-content-left-product-infos-quantity">
-                            <p>Quantité : {{ product.quantity }}</p>
-                        </div>
+                    <div class="cart-content-left-items pl-3">
+                        <h3>{{ product.product_title }}</h3>
+                        <p>{{ product.price }} €</p>
+                        <p>Quantity : {{ product.quantity }}</p>
                     </div>
-                </div>
-                {% endfor %}
             </div>
+            {% endfor %}
         </div>
-        <div class="cart-content-right">
-            <div class="cart-content-right-title">
-                <h2>Total</h2>
-            </div>
-            <div class="cart-content-right-total">
-                <p>2 €</p>
-            </div>
-            <div class="cart-content-right-button">
-                <a href="">Commander</a>
-            </div>
+        <div class="cart-content-right pl-3 align-center">
+                <h2 class="text-center">Total</h2>
+                <p>{{totalPrice}} €</p>
+            <a class="order-btn" href="">Order</a>
         </div>
     </div>
+</div>
 
 </div>
 
