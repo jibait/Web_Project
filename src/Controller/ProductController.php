@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\ProductUser;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use App\Repository\ProductUserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,15 +56,17 @@ class ProductController extends AbstractController
 
     // route which will be used to add a product to the cart by ajax
     #[Route('/addToCart', name: 'app_product_add_cart', methods: ['POST'])]
-    public function addCart(Request $request, ProductRepository $productRepository): JsonResponse
+    public function addCart(Request $request, ProductUserRepository $productUserRepository, ProductRepository $productRepository): JsonResponse
     {
         $jsonData = json_decode($request->getContent());
         $productId = $jsonData->productId;
         $product = $productRepository->find($productId);
+        $productUser = new ProductUser();
 
         // find the current user logged in
-        $product->addUser($this->getUser());
-        $productRepository->save($product, true);
+        $productUser->setUser($this->getUser());
+        $productUser->setProduct($product);
+        $productUserRepository->save($productUser, true);
         return new JsonResponse(['status' => 'Product added to cart!'], Response::HTTP_CREATED);
     }
 

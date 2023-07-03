@@ -31,13 +31,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'user')]
-    private Collection $products;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ProductUser::class)]
+    private $productUser;
 
-    public function __construct()
-    {
-        $this->products = new ArrayCollection();
-    }
+
 
     public function getId(): ?int
     {
@@ -107,33 +104,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    /**
-     * @return Collection<int, Product>
-     */
-    public function getProducts(): Collection
-    {
-        return $this->products;
-    }
-
-    public function addProduct(Product $product): static
-    {
-        if (!$this->products->contains($product)) {
-            $this->products->add($product);
-            $product->addUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): static
-    {
-        if ($this->products->removeElement($product)) {
-            $product->removeUser($this);
-        }
-
-        return $this;
     }
 
     public function __toString(): string

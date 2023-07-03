@@ -3,6 +3,49 @@
 {% block body %}
 {{ block('headerapp') }}
 
+<div class="cart-container">
+    <div class="cart-title">
+        <h1>Mon panier</h1>
+    </div>
+    <div class="cart-content">
+        <div class="cart-content-left">
+            <div class="cart-content-left-title">
+                <h2>Produits</h2>
+            </div>
+            <div class="cart-content-left-products">
+                {% for product in products %}
+                <div class="cart-content-left-product">
+                    <div class="cart-content-left-product-image">
+                        <img src="{{ asset(product.productImg) }}" alt="">
+                    </div>
+                    <div class="cart-content-left-product-infos">
+                        <div class="cart-content-left-product-infos-title">
+                            <h3>{{ product.productTitle }}</h3>
+                        </div>
+                        <div class="cart-content-left-product-infos-price">
+                            <p>{{ product.price }} €</p>
+                        </div>
+                        <div class="cart-content-left-product-infos-quantity">
+                            <p>Quantité : {{ product.quantity }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="cart-content-right">
+            <div class="cart-content-right-title">
+                <h2>Total</h2>
+            </div>
+            <div class="cart-content-right-total">
+                <p>2 €</p>
+            </div>
+            <div class="cart-content-right-button">
+                <a href="">Commander</a>
+            </div>
+        </div>
+    </div>
 
+</div>
 
 {% endblock %}
