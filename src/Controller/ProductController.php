@@ -26,10 +26,12 @@ class ProductController extends AbstractController
     }
 
     //route which shows the cart of the user
-    #[Route('/cart', name: 'app_product_cart', methods: ['GET'])]
-    public function userCart(ProductRepository $productRepository, TokenStorageInterface $tokenStorage, Connection $connection): Response
+    #[Route('/cart', name: 'app_product_cart', methods: ['GET','POST'])]
+    public function userCart(TokenStorageInterface $tokenStorage, Connection $connection): Response
     {
-        
+        if($this->getUser() == null){
+            return $this->redirectToRoute('app_login');
+        }
         $user = $tokenStorage->getToken()->getUser();
 
         // Check if user is logged in
@@ -44,15 +46,35 @@ class ProductController extends AbstractController
 
             // finding all products in the cart of the user in the database
             $result = $connection->executeQuery($sql, $parameters)->fetchAllAssociative();
-            dd($result);
             return $this->render('product/cart.html.twig', [
                 'products' => $result
             ]);
         } 
-        else {
-            return $this->redirectToRoute('app_login');
-        }
     }
+
+    // route which will be used to add a product to the cart by ajax
+    #[Route('/addToCart', name: 'app_product_add_cart', methods: ['POST'])]
+    public function addCart(Request $request, ProductRepository $productRepository): JsonResponse
+    {
+        $jsonData = json_decode($request->getContent());
+        $productId = $jsonData->productId;
+        $product = $productRepository->find($productId);
+
+        // find the current user logged in
+        $product->addUser($this->getUser());
+        $productRepository->save($product, true);
+        return new JsonResponse(['status' => 'Product added to cart!'], Response::HTTP_CREATED);
+    }
+
+   // route which will be used to add a product to the cart by ajax
+   #[Route('/filters', name: 'app_product_filters', methods: ['POST'])]
+   public function filters(Request $request, ProductRepository $productRepository): JsonResponse
+   {
+        $jsonData = json_decode($request->getContent());
+        $filter = $jsonData->filter;
+        $product = $productRepository->find($filter);
+        return new JsonResponse($product);
+   }
 
     // route which will be used to create a new product
     #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
@@ -109,19 +131,5 @@ class ProductController extends AbstractController
         }
 
         return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
-    }
-
-    // route which will be used to add a product to the cart by ajax
-    #[Route('/addToCart', name: 'app_product_cart', methods: ['POST'])]
-    public function addCart(Request $request, ProductRepository $productRepository): JsonResponse
-    {
-        $jsonData = json_decode($request->getContent());
-        $productId = $jsonData->productId;
-        $product = $productRepository->find($productId);
-
-        // find the current user logged in
-        $product->addUser($this->getUser());
-        $productRepository->save($product, true);
-        return new JsonResponse(['status' => 'Product added to cart!'], Response::HTTP_CREATED);
     }
 }
