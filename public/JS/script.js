@@ -2,7 +2,6 @@
 function addToCart(productId, url) {
     // Création d'un objet JSON avec l'ID du produit
     const data = { productId: productId }; // Ajout de la clé productId dans l'objet JSON
-    console.log(data);
     
     // Envoi de la requête AJAX au serveur pour ajouter le produit au panier
     fetch(url, {

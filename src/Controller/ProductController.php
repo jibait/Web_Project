@@ -60,8 +60,9 @@ class ProductController extends AbstractController
     }
 
     // route which will be used to add a product to the cart by ajax
+    // COuld not use repository because doctrine uses primary key column name as id, which is not the case in the database
     #[Route('/addToCart', name: 'app_product_add_cart', methods: ['POST'])]
-    public function addCart(Request $request, ProductUserRepository $productUserRepository, ProductRepository $productRepository, Connection $connection): JsonResponse
+    public function addCart(Request $request, ProductRepository $productRepository, Connection $connection): JsonResponse
     {
         $jsonData = json_decode($request->getContent());
         $productId = $jsonData->productId;

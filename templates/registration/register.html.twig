@@ -3,50 +3,29 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+{{ block('headerapp') }}
+  <div class="login-container">
+    <h2>Create an Account on WareSaurus</h2>
 
     {{ form_errors(registrationForm) }}
 
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn">Register</button>
+      <div class="register_form">
+        {{ form_widget(registrationForm.email) }}
+        {{ form_widget(registrationForm.plainPassword) }}
+        <div class="d-flex flex-row justify-space-between">
+          {{ form_row(registrationForm.agreeTerms) }}
+          <button class="green-button" type="submit">Register</button>
+        </div>
+      </div>
     {{ form_end(registrationForm) }}
+    <div class="d-flex w-320 mt-2 align-center">
+      <p>Already have an account?</p>
+      <a href="{{path('app_login')}}" class="green-button ml-3">Login</a>
+    </div>
 
     <body>
-  
-
-  <div class="banner-container-login">
-    <div class="banner-text-login">
-      <h1>IT</h1>
-      <h1>Plushies</h1>
-      <h1>School Supplies</h1>
-      <h1>Decoration & Furnitures</h1>
-      <h1>Books</h1>
-      <h1>Cosplay</h1>
-      <h1>Glasses</h1>
-      <h1>More</h1>
-      <div class="oval">FR</div>
-      <div class="oval">EN</div>
-    </div>
-  </div>
-
-  <div class="login-container">
-    <h2>Create an Account on WareSaurus</h2>
-    <form>
-      <input type="text" placeholder="Email">
-      <input type="password" placeholder="Password">
-      <input type="password" placeholder="Confirm Password">
-      <div class="button-container">
-        <button type="submit">Register</button>
-        <button class="login-button">Login</button>
-      </div>
-    </form>
-  </div>
+</div>
 
   <footer>
     <p>Â© 2023. WareSaurus All Rights Reserved.</p>
