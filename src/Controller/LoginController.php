@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -15,6 +16,9 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
       #[Route('/login', name: 'app_login')]
      public function index(AuthenticationUtils $authenticationUtils): Response
       {
+        if($this->getUser() != null){
+          return null;
+        }
 
          // get the login error if there is one
          $error = $authenticationUtils->getLastAuthenticationError();
@@ -33,7 +37,10 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
       #[Route('/logout', name: 'app_log_out', methods: ['GET'])]
       public function someAction(Security $security): Response
     {
+
+      if($this->getUser() != null){
         $security->logout(false);
+      }
 
         // redirect to the login page
         return $this->redirectToRoute('app_login');

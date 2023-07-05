@@ -1,22 +1,23 @@
-{% extends 'base.html.twig' %}
-
-{# ... #}
+{% extends 'header.html.twig' %}
 
 {% block body %}
+
+{{ block('headerapp') }}
+
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
+    <div class="login-container">
+        <h2>Login to WareSaurus</h2>
+        <form class="register_form" action="{{ path('app_login') }}" method="post">
+            <input placeholder="Email" type="text" id="username" name="_username" value="{{ last_username }}">
 
-    <form action="{{ path('app_login') }}" method="post">
-        <label for="username">Email:</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}">
+            <input placeholder="Password" type="password" id="password" name="_password">
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password">
+            <input type="hidden" name="_target_path" value="/product">
 
-
-        <input type="hidden" name="_target_path" value="/main">
-
-        <button type="submit">login</button>
-    </form>
+            <button class="green-button" type="submit">login</button>
+        </form>
+        <p>Don't have an account? <a href="{{ path('app_register') }}">Register</a></p>
+    </div>
 {% endblock %}

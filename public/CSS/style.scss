@@ -22,7 +22,7 @@ body {
 }
 
 .banniere-image {
-    width: 250px; /* Ajustez la largeur selon vos besoins */
+    width: 150px; /* Ajustez la largeur selon vos besoins */
     margin-right: 70px; /* Espace entre l'image et les mots */
 }
 .banner-search {
@@ -59,9 +59,11 @@ body {
     align-items: center;
 }
 
-.banner-text h1 {
+.nav-links {
     margin-right: 50px; /* Espace entre les mots */
     font-size: 18px; /* Taille des mots, ajustez selon vos besoins */
+    color: white;
+    text-decoration: none;
 }
 .banner-text h1:hover {
   border-bottom: 2px solid white; /* Add a small underline when hovering */
@@ -372,7 +374,7 @@ body {
     align-items: center;
   }
   
-  .login-container input[type=text], .login-container input[type=password]{
+  .login-container input[type=text], .login-container input[type=password], .login-container input[type=number], .login-container input[type=file]{
     width: 300px;
     padding: 10px;
     margin-bottom: 10px;
@@ -446,4 +448,21 @@ body {
 
   .justify-space-between{
     justify-content: space-between;
+  }
+
+  .centered-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    color: #03C04A;
+  }
+
+  .mr-0{
+    margin-right: 0;
+  }
+
+  ul{
+    padding-left: 12px;
   }

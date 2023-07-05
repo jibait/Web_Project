@@ -33,3 +33,38 @@ function addToCart(productId, url) {
       });
     });
   });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var addToCartButtons = document.querySelectorAll('.add-to-cart');
+  
+    var validationParagraph = document.getElementById('validation');
+  
+    addToCartButtons.forEach(function(addToCartButton) {
+      addToCartButton.addEventListener('click', function() {
+        var productId = addToCartButton.id;
+
+        validationParagraph.textContent = 'Le produit a été ajouté au panier !';
+        fadeIn(validationParagraph);
+  
+        setTimeout(function() {
+          fadeOut(validationParagraph);
+        }, 2000);
+      });
+    });
+  
+    function fadeIn(element) {
+      element.style.opacity = '0';
+      element.style.transition = 'opacity 1s';
+      setTimeout(function() {
+        element.style.opacity = '1';
+      }, 0);
+    }
+  
+    function fadeOut(element) {
+      element.style.opacity = '1';
+      element.style.transition = 'opacity 1s';
+      setTimeout(function() {
+        element.style.opacity = '0';
+      }, 0);
+    }
+  });

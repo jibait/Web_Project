@@ -5,17 +5,22 @@
 <header>
     
     <div class="banner-container">
-        <img src="" alt="Image" class="banniere-image">
+        <a href="{{path('app_product_index')}}" class="nav-links mr-0"><img src="{{asset('Medias/WareSaurus.png')}}" alt="Image" class="banniere-image"></a>
         <div class="banner-search">
           <input type="text" class="search-input" placeholder="Search">
           <button class="search-button">Search</button>
         </div>
         <div class="banner-text">
-          <h1>Home</h1>
-          <h1>Contact Us</h1>
-          <h1>My cart </h1>
+          {% if app.user %}
+            <a href="{{path('app_log_out')}}" class="nav-links">Log out</a>
+          {% else %}
+            <a href="{{path('app_login')}}" class="nav-links">Log in</a>
+          {% endif %}
+          <a class="nav-links" href="{{path('app_product_index')}}">Home</a>
+          <a class="nav-links" href="{{path('app_product_new')}}">Add a new product</a>
+          <a href="{{path('app_product_cart')}}" class="nav-links mr-0">My cart </a>
         </div>
-        <img src="{{asset('Medias/panier.png')}}" alt="Image" class="search-image">
+        <a href="{{path('app_product_cart')}}" class="nav-links mr-0"><img src="{{asset('Medias/panier.png')}}" alt="Image" class="search-image"></a>
     </div>
 </header>
 

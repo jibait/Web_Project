@@ -68,12 +68,16 @@
                 <h3 class="product-name">{{ product.productTitle }}</h3>
                 <p class="product-description">{{ product.productDescription }}</p>
                 <p class="product-price">{{ product.price }} euros</p>
-                <img class="rate" src="{{ asset(product.productRate) }}" alt="Product rate">
+                {% if product.productRate != "none" %}
+                    <img class="rate" src="{{ asset(product.productRate) }}" alt="">
+                {% else %}
+                    <img class="rate" src="{{ asset('Medias/Star_rating_0_of_5.png') }}" alt="">
+                {% endif %}
                 <button id="{{ product.id }}" class="add-to-cart mt-2">Add to cart</button>
             </div>
         </div>
         {% endfor %}
     </section>
 </main>
-
+    <p class="centered-message" id="validation"></p>
 {% endblock %}

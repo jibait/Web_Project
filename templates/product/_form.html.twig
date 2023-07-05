@@ -1,4 +1,9 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_widget(form.product_title) }}
+    {{ form_widget(form.product_description) }}
+    {{ form_widget(form.price) }}
+    {{ form_widget(form.product_img) }}
+    {{ form_widget(form.product_rate) }}
+    {{ form_widget(form.product_tag) }}
+    <button class="green-button">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
